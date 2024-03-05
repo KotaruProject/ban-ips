@@ -1,0 +1,33 @@
+name: Parse IP Ranges
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Запускать каждую неделю в воскресенье в полночь
+
+jobs:
+  parse_ips:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run script
+      run: |
+        #!/bin/bash
+
+        # URL страницы с диапазонами IP
+        URL1="https://bgp.he.net/AS61280#_prefixes"
+        URL2="https://bgp.he.net/AS47764#_prefixes"
+
+        # Парсинг страницы для получения диапазонов IP и сохранение в файл
+        curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3" "$URL1" | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}' | tr -d '"' > ip_ranges.txt
+        curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3" "$URL2" | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}' | tr -d '"' >> ip_ranges.txt
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ip_ranges.txt
+        git commit -m "Update IP ranges [skip ci]"
+        git push
