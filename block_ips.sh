@@ -14,4 +14,7 @@ done
 # Сохранение правил iptables
 iptables-save > /etc/iptables/rules.v4
 
+# Перезапуск сервиса iptables
+systemctl restart iptables
+
 echo "Готово! IP-диапазоны были добавлены в список блокировки iptables."
