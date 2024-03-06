@@ -1,2 +1,2 @@
 # ban-ips
-ban scanner from FGUP* and LLC VK* (Mail.Ru Group)
+Blocking the range of the scanner module from FGUP* and LLC VK* (Mail.Ru Group)
