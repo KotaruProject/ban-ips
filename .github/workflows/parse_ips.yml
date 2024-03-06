@@ -3,6 +3,7 @@ name: Parse IP Ranges
 on:
   schedule:
     - cron: '0 0 * * 0' # Запускать каждую неделю в воскресенье в полночь
+  workflow_dispatch:  # Добавление возможности запуска вручную
 
 jobs:
   parse_ips:
