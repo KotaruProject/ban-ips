@@ -18,12 +18,10 @@ jobs:
         #!/bin/bash
 
         # URL страницы с диапазонами IP
-        URL1="https://bgp.he.net/AS61280#_prefixes"
-        URL2="https://bgp.he.net/AS47764#_prefixes"
+        URL1="https://raw.githubusercontent.com/C24Be/AS_Network_List/main/blacklists/blacklist.txt"
 
         # Парсинг страницы для получения диапазонов IP и сохранение в файл
         curl -s -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Safari/605.1.1" "$URL1" | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}' | tr -d '"' > ip_ranges.txt
-        curl -s -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Safari/605.1.1" "$URL2" | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}' | tr -d '"' >> ip_ranges.txt
 
     - name: Commit changes
       run: |
